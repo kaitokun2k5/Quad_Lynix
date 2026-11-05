@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 240" font-family="Be Vietnam Pro, Inter, system-ui, sans-serif">
+  <defs>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M30,0 L0,0 0,30" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+    </pattern>
+    <marker id="mA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#3e63dd"/></marker>
+    <marker id="mB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#30a46c"/></marker>
+    <marker id="mS" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#e5484d"/></marker>
+  </defs>
+
+  <!-- a + b -->
+  <g transform="translate(10,10)">
+    <rect width="200" height="210" fill="url(#grid)" rx="10"/>
+    <g transform="translate(30,180)">
+      <line x1="0" y1="0" x2="90" y2="-30" stroke="#3e63dd" stroke-width="3.5" marker-end="url(#mA)"/>
+      <line x1="90" y1="-30" x2="120" y2="-105" stroke="#30a46c" stroke-width="3.5" marker-end="url(#mB)"/>
+      <line x1="0" y1="0" x2="30" y2="-75" stroke="#30a46c" stroke-width="2" stroke-dasharray="5 5" opacity=".6"/>
+      <line x1="30" y1="-75" x2="120" y2="-105" stroke="#3e63dd" stroke-width="2" stroke-dasharray="5 5" opacity=".6"/>
+      <line x1="0" y1="0" x2="120" y2="-105" stroke="#e5484d" stroke-width="3.5" marker-end="url(#mS)"/>
+      <text x="48" y="2" font-size="17" font-weight="700" fill="#3e63dd">a</text>
+      <text x="114" y="-56" font-size="17" font-weight="700" fill="#30a46c">b</text>
+      <text x="22" y="-86" font-size="17" font-weight="700" fill="#e5484d">a + b</text>
+      <circle r="4" fill="#334155"/>
+    </g>
+  </g>
+
+  <!-- a - b -->
+  <g transform="translate(230,10)">
+    <rect width="200" height="210" fill="url(#grid)" rx="10"/>
+    <g transform="translate(30,180)">
+      <line x1="0" y1="0" x2="135" y2="-30" stroke="#3e63dd" stroke-width="3.5" marker-end="url(#mA)"/>
+      <line x1="0" y1="0" x2="30" y2="-120" stroke="#30a46c" stroke-width="3.5" marker-end="url(#mB)"/>
+      <line x1="30" y1="-120" x2="135" y2="-30" stroke="#e5484d" stroke-width="3.5" marker-end="url(#mS)"/>
+      <text x="70" y="0" font-size="17" font-weight="700" fill="#3e63dd">a</text>
+      <text x="-2" y="-64" font-size="17" font-weight="700" fill="#30a46c">b</text>
+      <text x="92" y="-86" font-size="17" font-weight="700" fill="#e5484d">a − b</text>
+      <circle r="4" fill="#334155"/>
+    </g>
+  </g>
+
+  <!-- k · a -->
+  <g transform="translate(450,10)">
+    <rect width="200" height="210" fill="url(#grid)" rx="10"/>
+    <g transform="translate(30,180)">
+      <line x1="0" y1="0" x2="150" y2="-120" stroke="#e5484d" stroke-width="7" stroke-linecap="round" opacity=".35" marker-end="url(#mS)"/>
+      <line x1="0" y1="0" x2="75" y2="-60" stroke="#3e63dd" stroke-width="3.5" marker-end="url(#mA)"/>
+      <line x1="0" y1="0" x2="-30" y2="24" stroke="#30a46c" stroke-width="3.5" marker-end="url(#mB)"/>
+      <text x="22" y="-48" font-size="17" font-weight="700" fill="#3e63dd">a</text>
+      <text x="114" y="-118" font-size="17" font-weight="700" fill="#e5484d">2a</text>
+      <text x="-22" y="0" font-size="15" font-weight="700" fill="#30a46c" transform="translate(0,-8)">−0.4a</text>
+      <circle r="4" fill="#334155"/>
+    </g>
+  </g>
+</svg>

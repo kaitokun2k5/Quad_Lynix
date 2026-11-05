@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 290" font-family="Be Vietnam Pro, Inter, system-ui, sans-serif">
+  <defs>
+    <marker id="aR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#e5484d"/></marker>
+    <marker id="aG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#30a46c"/></marker>
+    <marker id="aB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#3e63dd"/></marker>
+  </defs>
+
+  <!-- Body frame FLU, isometric view from behind the drone -->
+  <g transform="translate(150,185)">
+    <!-- arms -->
+    <g stroke="#475569" stroke-width="7" stroke-linecap="round">
+      <line x1="0" y1="0" x2="0" y2="-60"/>
+      <line x1="0" y1="0" x2="104" y2="0"/>
+      <line x1="0" y1="0" x2="-104" y2="0"/>
+      <line x1="0" y1="0" x2="0" y2="60"/>
+    </g>
+    <!-- rotors: front pair orange, rear pair grey -->
+    <g stroke-width="2.5">
+      <ellipse cx="0" cy="-60" rx="33" ry="19" fill="#fb923c33" stroke="#f97316"/>
+      <ellipse cx="104" cy="0" rx="33" ry="19" fill="#fb923c33" stroke="#f97316"/>
+      <ellipse cx="-104" cy="0" rx="33" ry="19" fill="#94a3b833" stroke="#64748b"/>
+      <ellipse cx="0" cy="60" rx="33" ry="19" fill="#94a3b833" stroke="#64748b"/>
+    </g>
+    <!-- body -->
+    <path d="M0,-18 L31,0 L0,18 L-31,0 z" fill="#1e293b"/>
+    <path d="M0,-27 L31,-9 L0,9 L-31,-9 z" fill="#334155" stroke="#0f172a" stroke-width="1"/>
+    <!-- axes -->
+    <line x1="0" y1="-9" x2="88" y2="-60" stroke="#e5484d" stroke-width="4" stroke-linecap="round" marker-end="url(#aR)"/>
+    <line x1="0" y1="-9" x2="-88" y2="-60" stroke="#30a46c" stroke-width="4" stroke-linecap="round" marker-end="url(#aG)"/>
+    <line x1="0" y1="-9" x2="0" y2="-118" stroke="#3e63dd" stroke-width="4" stroke-linecap="round" marker-end="url(#aB)"/>
+    <text x="94" y="-66" font-size="17" font-weight="700" fill="#e5484d">X · F</text>
+    <text x="-142" y="-66" font-size="17" font-weight="700" fill="#30a46c">Y · L</text>
+    <text x="8" y="-124" font-size="17" font-weight="700" fill="#3e63dd">Z · U</text>
+  </g>
+
+  <line x1="300" y1="20" x2="300" y2="270" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- World frame ENU -->
+  <g transform="translate(450,185)">
+    <path d="M0,-72 L125,0 L0,72 L-125,0 z" fill="#e2e8f066" stroke="#cbd5e1" stroke-width="1.5"/>
+    <g stroke="#cbd5e1" stroke-width="1">
+      <line x1="-62.5" y1="-36" x2="62.5" y2="36"/>
+      <line x1="62.5" y1="-36" x2="-62.5" y2="36"/>
+    </g>
+    <line x1="0" y1="0" x2="95" y2="-55" stroke="#e5484d" stroke-width="4" stroke-linecap="round" marker-end="url(#aR)"/>
+    <line x1="0" y1="0" x2="-95" y2="-55" stroke="#30a46c" stroke-width="4" stroke-linecap="round" marker-end="url(#aG)"/>
+    <line x1="0" y1="0" x2="0" y2="-118" stroke="#3e63dd" stroke-width="4" stroke-linecap="round" marker-end="url(#aB)"/>
+    <circle r="5" fill="#334155"/>
+    <text x="100" y="-62" font-size="17" font-weight="700" fill="#e5484d">X · E</text>
+    <text x="-148" y="-62" font-size="17" font-weight="700" fill="#30a46c">Y · N</text>
+    <text x="8" y="-124" font-size="17" font-weight="700" fill="#3e63dd">Z · U</text>
+  </g>
+</svg>

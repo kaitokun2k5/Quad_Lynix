@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 250" font-family="Be Vietnam Pro, Inter, system-ui, sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/>
+    </marker>
+    <marker id="aR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#e5484d"/></marker>
+    <marker id="aG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#30a46c"/></marker>
+    <marker id="aB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#3e63dd"/></marker>
+  </defs>
+
+  <!-- Left-handed: X right, Y up, Z into the screen -->
+  <g transform="translate(130,150)">
+    <g stroke="#cbd2dc" stroke-width="1" stroke-dasharray="3 4" fill="none">
+      <path d="M0,0 L60,-45"/>
+    </g>
+    <line x1="0" y1="0" x2="110" y2="0" stroke="#e5484d" stroke-width="4" stroke-linecap="round" marker-end="url(#aR)"/>
+    <line x1="0" y1="0" x2="0" y2="-110" stroke="#30a46c" stroke-width="4" stroke-linecap="round" marker-end="url(#aG)"/>
+    <line x1="0" y1="0" x2="70" y2="-52" stroke="#3e63dd" stroke-width="4" stroke-linecap="round" marker-end="url(#aB)" opacity=".85"/>
+    <circle r="5" fill="#334155"/>
+    <text x="122" y="6" font-size="20" font-weight="700" fill="#e5484d">X</text>
+    <text x="-7" y="-122" font-size="20" font-weight="700" fill="#30a46c">Y</text>
+    <text x="80" y="-60" font-size="20" font-weight="700" fill="#3e63dd">Z</text>
+    <text x="70" y="40" font-size="13" fill="#64748b" text-anchor="middle">Z ⟶ ⊗</text>
+  </g>
+
+  <line x1="280" y1="20" x2="280" y2="230" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- Right-handed: X right, Y up, Z out of the screen -->
+  <g transform="translate(400,150)">
+    <line x1="0" y1="0" x2="110" y2="0" stroke="#e5484d" stroke-width="4" stroke-linecap="round" marker-end="url(#aR)"/>
+    <line x1="0" y1="0" x2="0" y2="-110" stroke="#30a46c" stroke-width="4" stroke-linecap="round" marker-end="url(#aG)"/>
+    <line x1="0" y1="0" x2="-66" y2="50" stroke="#3e63dd" stroke-width="4" stroke-linecap="round" marker-end="url(#aB)"/>
+    <circle r="5" fill="#334155"/>
+    <text x="122" y="6" font-size="20" font-weight="700" fill="#e5484d">X</text>
+    <text x="-7" y="-122" font-size="20" font-weight="700" fill="#30a46c">Y</text>
+    <text x="-92" y="72" font-size="20" font-weight="700" fill="#3e63dd">Z</text>
+    <text x="70" y="40" font-size="13" fill="#64748b" text-anchor="middle">Z ⟶ ⊙</text>
+  </g>
+</svg>

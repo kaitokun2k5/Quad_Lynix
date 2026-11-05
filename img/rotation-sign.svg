@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 260" font-family="Be Vietnam Pro, Inter, system-ui, sans-serif">
+  <defs>
+    <marker id="aR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#e5484d"/></marker>
+    <marker id="aG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#30a46c"/></marker>
+    <marker id="aO" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f97316"/></marker>
+  </defs>
+  <g transform="translate(130,150)">
+    <line x1="0" y1="0" x2="130" y2="0" stroke="#e5484d" stroke-width="4" stroke-linecap="round" marker-end="url(#aR)"/>
+    <line x1="0" y1="0" x2="0" y2="-120" stroke="#30a46c" stroke-width="4" stroke-linecap="round" marker-end="url(#aG)"/>
+    <!-- Z points at the viewer -->
+    <circle r="13" fill="#fff" stroke="#3e63dd" stroke-width="3"/>
+    <circle r="4.5" fill="#3e63dd"/>
+    <text x="-34" y="30" font-size="18" font-weight="700" fill="#3e63dd">Z</text>
+    <text x="140" y="6" font-size="18" font-weight="700" fill="#e5484d">X</text>
+    <text x="-6" y="-130" font-size="18" font-weight="700" fill="#30a46c">Y</text>
+    <!-- counter-clockwise arc from +X toward +Y -->
+    <path d="M78,0 A78,78 0 0 0 23,-74.5" fill="none" stroke="#f97316" stroke-width="3.5" stroke-linecap="round" marker-end="url(#aO)"/>
+    <text x="62" y="-58" font-size="20" font-weight="700" fill="#f97316">+θ</text>
+    <!-- the rotated vector -->
+    <line x1="0" y1="0" x2="85" y2="-85" stroke="#334155" stroke-width="2.5" stroke-dasharray="6 5"/>
+  </g>
+</svg>

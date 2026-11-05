@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 240" font-family="Be Vietnam Pro, Inter, system-ui, sans-serif">
+  <defs>
+    <marker id="mA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#3e63dd"/></marker>
+    <marker id="mB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#30a46c"/></marker>
+    <marker id="mC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#e5484d"/></marker>
+  </defs>
+  <g transform="translate(300,118)">
+    <!-- parallelogram spanned by a and b (lies in the ground plane) -->
+    <path d="M0,0 L-93.5,36 L-26,87 L67.5,51 z" fill="#f9731622" stroke="#f97316" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="-22" y="52" font-size="14" font-weight="600" fill="#c2410c" text-anchor="middle">S = |a × b|</text>
+    <!-- right-angle markers -->
+    <path d="M0,-16 L-12,-11 L-12,5" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+    <path d="M0,-16 L9,-10 L9,6" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+    <!-- angle between a and b -->
+    <path d="M-28,10.8 Q-4,28 20.2,15.3" fill="none" stroke="#64748b" stroke-width="2"/>
+    <text x="-4" y="38" font-size="15" fill="#475569" text-anchor="middle" font-style="italic">φ</text>
+    <line x1="0" y1="0" x2="-93.5" y2="36" stroke="#3e63dd" stroke-width="4" stroke-linecap="round" marker-end="url(#mA)"/>
+    <line x1="0" y1="0" x2="67.5" y2="51" stroke="#30a46c" stroke-width="4" stroke-linecap="round" marker-end="url(#mB)"/>
+    <line x1="0" y1="0" x2="0" y2="-96" stroke="#e5484d" stroke-width="4" stroke-linecap="round" marker-end="url(#mC)"/>
+    <circle r="4.5" fill="#334155"/>
+    <text x="-118" y="46" font-size="18" font-weight="700" fill="#3e63dd">a</text>
+    <text x="78" y="64" font-size="18" font-weight="700" fill="#30a46c">b</text>
+    <text x="10" y="-90" font-size="18" font-weight="700" fill="#e5484d">a × b</text>
+  </g>
+</svg>
