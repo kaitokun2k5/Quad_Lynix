@@ -32,7 +32,7 @@
     <span class="brand-mark" aria-hidden="true">
       <svg viewBox="0 0 32 32" width="26" height="26"><g stroke="currentColor" stroke-width="3"><line x1="8" y1="8" x2="24" y2="24"/><line x1="24" y1="8" x2="8" y2="24"/></g><g fill="none" stroke="#f97316" stroke-width="2.5"><circle cx="7" cy="7" r="5"/><circle cx="25" cy="7" r="5"/></g><g fill="none" stroke="currentColor" stroke-width="2.5" opacity=".6"><circle cx="7" cy="25" r="5"/><circle cx="25" cy="25" r="5"/></g></svg>
     </span>
-    <span class="brand-text"><span lang="vi">Toán cho drone</span><span lang="en">Drone math</span></span>
+    <span class="brand-text"><span lang="vi">Toán học cho drone</span><span lang="en">Drone math</span></span>
   </a>
   <div class="topbar-actions">
     <div class="lang-switch" role="group" aria-label="Language">
@@ -59,23 +59,23 @@
       <div class="eyebrow"><span lang="vi">Nền tảng toán học · Bộ điều khiển bay</span><span lang="en">Math foundations · Flight controller</span></div>
       <h1><span lang="vi">Vector &amp; Quaternion</span><span lang="en">Vectors &amp; Quaternions</span></h1>
       <p class="lead">
-        <span lang="vi">Một quadcopter phải liên tục trả lời hai câu hỏi: <em>mình đang nghiêng thế nào</em> và <em>cần xoay bao nhiêu để về đúng tư thế</em>. Bài này giới thiệu bộ công cụ hình học để trả lời chúng — hệ tọa độ, vector và quaternion — theo góc nhìn thực hành của người viết firmware.</span>
+        <span lang="vi">Mỗi giây, bộ điều khiển của quadcopter phải trả lời hàng trăm lần hai câu hỏi: <em>“Mình đang nghiêng thế nào?”</em> và <em>“Cần xoay thêm bao nhiêu để về đúng tư thế mong muốn?”</em>. Bài viết này giới thiệu những công cụ hình học giúp trả lời hai câu hỏi đó — hệ tọa độ, vector và quaternion — theo hướng thực hành, dành cho người viết firmware bay.</span>
         <span lang="en">A quadcopter has to answer two questions hundreds of times per second: <em>how am I tilted right now</em>, and <em>how much do I need to rotate to reach the desired attitude</em>. This page walks through the geometric toolkit behind those answers — coordinate frames, vectors and quaternions — from the practical point of view of someone writing flight firmware.</span>
       </p>
       <div class="chips">
-        <span class="chip"><span lang="vi">⏱ ~15 phút đọc</span><span lang="en">⏱ ~15 min read</span></span>
+        <span class="chip"><span lang="vi">⏱ Đọc khoảng 15 phút</span><span lang="en">⏱ ~15 min read</span></span>
         <span class="chip"><span lang="vi">🧭 Demo 3D tương tác</span><span lang="en">🧭 Interactive 3D demo</span></span>
-        <span class="chip"><span lang="vi">💻 Ví dụ C++</span><span lang="en">💻 C++ examples</span></span>
+        <span class="chip"><span lang="vi">💻 Ví dụ mã C++</span><span lang="en">💻 C++ examples</span></span>
       </div>
     </section>
 
     <!-- ============ 1. FRAMES ============ -->
     <h2 id="frames"><span lang="vi">Hệ tọa độ</span><span lang="en">Coordinate frames</span></h2>
 
-    <h3 id="handedness"><span lang="vi">Tay trái hay tay phải?</span><span lang="en">Left-handed or right-handed?</span></h3>
+    <h3 id="handedness"><span lang="vi">Hệ tay trái hay hệ tay phải?</span><span lang="en">Left-handed or right-handed?</span></h3>
     <div lang="vi">
-      <p>Mọi phép tính 3D đều bắt đầu bằng việc thống nhất ba trục X, Y, Z vuông góc với nhau. Nhưng chỉ ba trục vuông góc thì chưa đủ: với cùng X và Y, trục Z có thể chĩa theo hai chiều ngược nhau, tạo ra hai “thế giới” là ảnh gương của nhau — <strong>hệ tay trái</strong> và <strong>hệ tay phải</strong>.</p>
-      <p>Cách kiểm tra nhanh: duỗi ngón cái theo X, ngón trỏ theo Y; khi đó ngón giữa (gập vuông góc) chỉ chiều Z. Làm với bàn tay nào khớp thì hệ đó mang tên bàn tay ấy.</p>
+      <p>Mọi phép tính trong không gian ba chiều đều bắt đầu từ việc chọn ba trục X, Y, Z vuông góc với nhau từng đôi một. Tuy nhiên, chỉ vuông góc thôi thì chưa đủ: khi đã cố định X và Y, trục Z vẫn có thể chĩa theo một trong hai chiều ngược nhau. Hai lựa chọn này tạo ra hai hệ tọa độ đối xứng với nhau như qua gương, gọi là <strong>hệ tay trái</strong> và <strong>hệ tay phải</strong>.</p>
+      <p>Cách phân biệt nhanh: chĩa ngón cái theo trục X, ngón trỏ theo trục Y, rồi gập ngón giữa vuông góc với hai ngón kia — ngón giữa chính là chiều của trục Z. Làm được như vậy với tay phải thì đó là hệ tay phải, với tay trái thì là hệ tay trái.</p>
     </div>
     <div lang="en">
       <p>Every 3D calculation starts by agreeing on three mutually perpendicular axes X, Y and Z. Perpendicularity alone is not enough, though: for the same X and Y, the Z axis can point in either of two opposite directions, giving two mirror-image worlds — a <strong>left-handed</strong> and a <strong>right-handed</strong> frame.</p>
@@ -85,19 +85,19 @@
     <figure class="fig">
       <img src="img/handedness.svg" alt="" width="560" height="250" loading="lazy">
       <figcaption>
-        <span class="fig-cols"><span><b lang="vi">Hệ tay trái</b><b lang="en">Left-handed</b> — <span lang="vi">Z đi vào màn hình (⊗)</span><span lang="en">Z goes into the screen (⊗)</span></span>
-        <span><b lang="vi">Hệ tay phải</b><b lang="en">Right-handed</b> — <span lang="vi">Z hướng ra phía người xem (⊙)</span><span lang="en">Z comes out toward you (⊙)</span></span></span>
+        <span class="fig-cols"><span><b lang="vi">Hệ tay trái</b><b lang="en">Left-handed</b> — <span lang="vi">trục Z hướng vào trong màn hình (⊗)</span><span lang="en">Z goes into the screen (⊗)</span></span>
+        <span><b lang="vi">Hệ tay phải</b><b lang="en">Right-handed</b> — <span lang="vi">trục Z hướng ra ngoài, về phía người xem (⊙)</span><span lang="en">Z comes out toward you (⊙)</span></span></span>
       </figcaption>
     </figure>
 
     <div class="callout key">
-      <span lang="vi">Robot và hàng không gần như luôn dùng <strong>hệ tay phải</strong>, và bài này cũng vậy. Trộn lẫn hai quy ước là nguồn gốc kinh điển của lỗi “drone lật ngay khi cất cánh”.</span>
+      <span lang="vi">Trong robot và hàng không, người ta gần như luôn dùng <strong>hệ tay phải</strong>; toàn bộ bài này cũng vậy. Dùng lẫn lộn hai quy ước là nguyên nhân quen thuộc của lỗi “drone vừa cất cánh đã lật”.</span>
       <span lang="en">Robotics and aviation almost always use a <strong>right-handed</strong> frame, and so does everything on this page. Mixing the two conventions is a classic source of “flips over the moment it takes off” bugs.</span>
     </div>
 
-    <h3 id="flu-enu"><span lang="vi">Trục nào chỉ về đâu: FLU và ENU</span><span lang="en">Which way is which: FLU and ENU</span></h3>
+    <h3 id="flu-enu"><span lang="vi">Các trục chỉ về đâu? Quy ước FLU và ENU</span><span lang="en">Which way is which: FLU and ENU</span></h3>
     <div lang="vi">
-      <p>Biết hệ tay phải rồi, ta còn phải gắn các trục vào vật thể thật. Một quy ước phổ biến trong cộng đồng ROS là <a href="https://www.ros.org/reps/rep-0103.html" target="_blank" rel="noopener">REP-103</a>, dùng hai hệ:</p>
+      <p>Chọn xong hệ tay phải, ta còn phải quyết định mỗi trục chỉ về hướng nào trên vật thật. Một quy ước được dùng rộng rãi là <a href="https://www.ros.org/reps/rep-0103.html" target="_blank" rel="noopener">REP-103</a> của cộng đồng ROS (Robot Operating System). Quy ước này dùng hai hệ tọa độ:</p>
     </div>
     <div lang="en">
       <p>Knowing the frame is right-handed, we still have to attach the axes to real things. A widely used convention from the ROS community is <a href="https://www.ros.org/reps/rep-0103.html" target="_blank" rel="noopener">REP-103</a>, which defines two frames:</p>
@@ -108,42 +108,42 @@
         <div class="card-tag"><span lang="vi">Gắn với thân drone</span><span lang="en">Attached to the body</span></div>
         <h4>FLU</h4>
         <ul class="axis-list">
-          <li><i class="ax x">X</i><span lang="vi">hướng về phía trước (<b>F</b>orward)</span><span lang="en"><b>F</b>orward, out of the nose</span></li>
-          <li><i class="ax y">Y</i><span lang="vi">sang trái (<b>L</b>eft)</span><span lang="en">to the <b>L</b>eft</span></li>
-          <li><i class="ax z">Z</i><span lang="vi">lên trên (<b>U</b>p)</span><span lang="en"><b>U</b>p through the top</span></li>
+          <li><i class="ax x">X</i><span lang="vi">chỉ về phía trước, theo mũi drone (<b>F</b>orward)</span><span lang="en"><b>F</b>orward, out of the nose</span></li>
+          <li><i class="ax y">Y</i><span lang="vi">chỉ sang trái (<b>L</b>eft)</span><span lang="en">to the <b>L</b>eft</span></li>
+          <li><i class="ax z">Z</i><span lang="vi">chỉ lên trên, xuyên qua nóc drone (<b>U</b>p)</span><span lang="en"><b>U</b>p through the top</span></li>
         </ul>
-        <p class="card-note"><span lang="vi">Dữ liệu gia tốc kế, con quay hồi chuyển và lệnh vận tốc góc được biểu diễn trong hệ này. Nó xoay theo drone.</span><span lang="en">Accelerometer and gyro readings and angular-rate commands live here. It turns together with the drone.</span></p>
+        <p class="card-note"><span lang="vi">Số đo của gia tốc kế, con quay hồi chuyển và các lệnh vận tốc góc đều được tính trong hệ này. Hệ này xoay cùng với drone.</span><span lang="en">Accelerometer and gyro readings and angular-rate commands live here. It turns together with the drone.</span></p>
       </div>
       <div class="card">
         <div class="card-tag"><span lang="vi">Gắn với mặt đất</span><span lang="en">Fixed to the world</span></div>
         <h4>ENU</h4>
         <ul class="axis-list">
-          <li><i class="ax x">X</i><span lang="vi">về phía Đông (<b>E</b>ast)</span><span lang="en"><b>E</b>ast</span></li>
-          <li><i class="ax y">Y</i><span lang="vi">về phía Bắc (<b>N</b>orth)</span><span lang="en"><b>N</b>orth</span></li>
-          <li><i class="ax z">Z</i><span lang="vi">lên trên (<b>U</b>p)</span><span lang="en"><b>U</b>p, against gravity</span></li>
+          <li><i class="ax x">X</i><span lang="vi">chỉ về hướng Đông (<b>E</b>ast)</span><span lang="en"><b>E</b>ast</span></li>
+          <li><i class="ax y">Y</i><span lang="vi">chỉ về hướng Bắc (<b>N</b>orth)</span><span lang="en"><b>N</b>orth</span></li>
+          <li><i class="ax z">Z</i><span lang="vi">chỉ lên trời, ngược chiều trọng lực (<b>U</b>p)</span><span lang="en"><b>U</b>p, against gravity</span></li>
         </ul>
-        <p class="card-note"><span lang="vi">Tư thế và vị trí của drone được mô tả so với hệ này. Nó đứng yên.</span><span lang="en">The drone’s attitude and position are described relative to this frame. It stays put.</span></p>
+        <p class="card-note"><span lang="vi">Tư thế và vị trí của drone được mô tả so với hệ này. Hệ này cố định, không di chuyển theo drone.</span><span lang="en">The drone’s attitude and position are described relative to this frame. It stays put.</span></p>
       </div>
     </div>
 
     <figure class="fig">
       <img src="img/frames.svg" alt="" width="600" height="290" loading="lazy">
-      <figcaption><span lang="vi">Trái: hệ thân FLU — hai cánh quạt màu cam ở phía trước. Phải: hệ thế giới ENU.</span><span lang="en">Left: the FLU body frame — the orange rotors mark the front. Right: the ENU world frame.</span></figcaption>
+      <figcaption><span lang="vi">Bên trái: hệ gắn với thân drone (FLU) — hai cánh quạt màu cam nằm ở phía trước. Bên phải: hệ gắn với mặt đất (ENU).</span><span lang="en">Left: the FLU body frame — the orange rotors mark the front. Right: the ENU world frame.</span></figcaption>
     </figure>
 
     <div class="callout note">
-      <span lang="vi">Nếu drone không có la bàn (từ kế), nó không biết đâu là Bắc thật. Khi đó “Đông” và “Bắc” chỉ là hai chiều được chọn tùy ý lúc khởi động — điều quan trọng duy nhất là chúng vuông góc và tạo thành hệ tay phải cùng trục Up.</span>
+      <span lang="vi">Nếu drone không có từ kế (la bàn điện tử), nó không thể biết đâu là hướng Bắc thật. Khi đó “Đông” và “Bắc” chỉ là hai hướng nằm ngang được chọn tùy ý lúc khởi động. Điều duy nhất cần đảm bảo là hai hướng này vuông góc với nhau và cùng với trục hướng lên tạo thành hệ tay phải.</span>
       <span lang="en">Without a magnetometer, the drone has no idea where true north is. “East” and “North” are then just two arbitrary horizontal directions picked at boot — all that matters is that they are perpendicular and form a right-handed frame with Up.</span>
     </div>
 
-    <h3 id="sign"><span lang="vi">Chiều dương của góc quay</span><span lang="en">Which rotation is positive?</span></h3>
+    <h3 id="sign"><span lang="vi">Chiều quay nào là dương?</span><span lang="en">Which rotation is positive?</span></h3>
     <figure class="fig fig-side">
       <img src="img/rotation-sign.svg" alt="" width="320" height="260" loading="lazy">
       <div>
         <div lang="vi">
-          <p>Hãy nhìn dọc theo một trục, sao cho trục ấy chĩa thẳng vào mắt bạn. Góc quay quanh trục đó được tính là <strong>dương khi ngược chiều kim đồng hồ</strong>.</p>
-          <p>Một cách nhớ khác — <em>quy tắc nắm tay phải</em>: ngón cái theo chiều trục, bốn ngón còn lại cuộn theo chiều quay dương. Ví dụ, yaw dương (quanh Z hướng lên) là quay trái khi nhìn từ trên xuống.</p>
-        </div>
+      <p>Hãy tưởng tượng bạn nhìn dọc theo một trục, sao cho đầu mũi tên của trục chĩa thẳng vào mắt mình. Khi đó, phép quay quanh trục này được coi là <strong>dương nếu ngược chiều kim đồng hồ</strong>.</p>
+      <p>Một cách nhớ tương đương là <em>quy tắc nắm tay phải</em>: nắm tay phải lại và chĩa ngón cái theo chiều của trục, thì bốn ngón còn lại cong theo chiều quay dương. Ví dụ: yaw dương (quay quanh trục Z hướng lên) nghĩa là mũi drone quay sang trái khi nhìn từ trên xuống.</p>
+    </div>
         <div lang="en">
           <p>Look along an axis so that it points straight at your eye. A rotation about that axis is <strong>positive when it goes counter-clockwise</strong>.</p>
           <p>Equivalently, use the <em>right-hand grip rule</em>: thumb along the axis, and your curled fingers show the positive direction. A positive yaw (about Z pointing up) therefore turns the nose to the left when seen from above.</p>
@@ -152,28 +152,28 @@
     </figure>
 
     <div class="callout tip">
-      <span lang="vi"><b>Mẹo nhớ màu:</b> X–Y–Z thường được tô Đỏ–Lục–Lam, đúng thứ tự R–G–B. Mọi hình và demo trong trang này đều theo quy ước đó.</span>
+      <span lang="vi"><b>Mẹo nhớ màu:</b> ba trục X, Y, Z thường được tô lần lượt bằng màu đỏ, xanh lá và xanh dương — đúng thứ tự của bộ màu RGB (Red, Green, Blue). Mọi hình vẽ và demo trong trang này đều tô màu theo cách đó.</span>
       <span lang="en"><b>Colour mnemonic:</b> X–Y–Z are usually drawn red–green–blue, the same order as R–G–B. All figures and the demo on this page follow it.</span>
     </div>
 
     <!-- ============ 2. VECTORS ============ -->
     <h2 id="vectors"><span lang="vi">Vector</span><span lang="en">Vectors</span></h2>
     <div lang="vi">
-      <p>Vector 3D chỉ là ba số <code>(x, y, z)</code> — các <em>thành phần</em> của nó. Cùng một kiểu dữ liệu ấy có thể biểu diễn rất nhiều thứ: một điểm, một hướng, một trục quay, vận tốc, gia tốc, vận tốc góc… Trong firmware bay, ví dụ điển hình là:</p>
+      <p>Vector trong không gian ba chiều đơn giản là một bộ ba số <code>(x, y, z)</code>, gọi là các <em>thành phần</em> của vector. Chỉ với một kiểu dữ liệu này, ta có thể biểu diễn rất nhiều đại lượng: một điểm, một hướng, một trục quay, vận tốc, gia tốc, vận tốc góc… Trong firmware bay, một số vector tiêu biểu là:</p>
     </div>
     <div lang="en">
       <p>A 3D vector is simply three numbers <code>(x, y, z)</code> — its <em>components</em>. That one data type can stand for many things: a point, a direction, a rotation axis, velocity, acceleration, angular rate… Typical vectors in flight firmware:</p>
     </div>
 
     <ul class="pill-list">
-      <li><code>accel</code><span lang="vi">gia tốc đo từ gia tốc kế</span><span lang="en">specific force measured by the accelerometer</span></li>
-      <li><code>gyro</code><span lang="vi">vận tốc góc từ con quay hồi chuyển</span><span lang="en">angular rate from the gyroscope</span></li>
-      <li><code>rateTarget</code><span lang="vi">vận tốc góc mong muốn mà bộ điều khiển yêu cầu</span><span lang="en">angular rate requested by the controller</span></li>
-      <li><code>gyroBias</code><span lang="vi">độ lệch hiệu chuẩn của cảm biến</span><span lang="en">sensor calibration offset</span></li>
+      <li><code>accel</code><span lang="vi">gia tốc do gia tốc kế đo được</span><span lang="en">specific force measured by the accelerometer</span></li>
+      <li><code>gyro</code><span lang="vi">vận tốc góc do con quay hồi chuyển (gyro) đo được</span><span lang="en">angular rate from the gyroscope</span></li>
+      <li><code>rateTarget</code><span lang="vi">vận tốc góc mà bộ điều khiển muốn drone đạt tới</span><span lang="en">angular rate requested by the controller</span></li>
+      <li><code>gyroBias</code><span lang="vi">độ lệch (bias) của cảm biến, xác định khi hiệu chuẩn</span><span lang="en">sensor calibration offset</span></li>
     </ul>
 
     <p>
-      <span lang="vi">Để minh họa, ta dùng một struct tối giản tự viết. Các thư viện thực tế (Eigen, GLM, thư viện riêng của firmware…) đều có hàm tương đương, chỉ khác tên.</span>
+      <span lang="vi">Để dễ theo dõi, các ví dụ dưới đây dùng một struct tự viết rất đơn giản. Những thư viện thực tế như Eigen, GLM hay thư viện riêng của từng firmware đều có các hàm tương đương, chỉ khác tên gọi.</span>
       <span lang="en">To keep things concrete we’ll use a minimal hand-written struct. Real libraries (Eigen, GLM, a firmware’s own helpers…) all provide equivalents under different names.</span>
     </p>
 
@@ -185,13 +185,13 @@ Vec3 accel = {0.1f, -0.2f, 9.8f};
 accel.z -= 9.81f;</code></pre>
 
     <div class="callout warn">
-      <span lang="vi">Đừng nhầm vector hình học với <code>std::vector</code> của C++ — thứ kia là mảng động, không liên quan gì đến hình học.</span>
+      <span lang="vi">Đừng nhầm vector hình học với <code>std::vector</code> trong C++. <code>std::vector</code> là một mảng động dùng để chứa dữ liệu, hoàn toàn không liên quan đến hình học.</span>
       <span lang="en">Don’t confuse a geometric vector with C++’s <code>std::vector</code> — that one is a dynamic array and has nothing to do with geometry.</span>
     </div>
 
     <h3 id="vec-basics"><span lang="vi">Độ dài và chuẩn hóa</span><span lang="en">Length and normalisation</span></h3>
     <div lang="vi">
-      <p><strong>Độ dài</strong> (chuẩn, <em>norm</em>) tính bằng định lý Pythagoras mở rộng sang 3 chiều. <strong>Chuẩn hóa</strong> nghĩa là chia vector cho độ dài của chính nó: hướng giữ nguyên, độ dài thành 1. Vector độ dài 1 gọi là <em>vector đơn vị</em> và rất hay dùng để biểu diễn “chỉ hướng”, chẳng hạn trục quay.</p>
+      <p><strong>Độ dài</strong> của vector (còn gọi là <em>chuẩn</em>, tiếng Anh là <em>norm</em>) được tính bằng định lý Pythagoras mở rộng cho ba chiều. <strong>Chuẩn hóa</strong> một vector là chia vector đó cho chính độ dài của nó: hướng được giữ nguyên, còn độ dài trở thành 1. Vector có độ dài bằng 1 gọi là <em>vector đơn vị</em>; nó rất tiện khi ta chỉ quan tâm đến hướng, chẳng hạn để biểu diễn trục quay.</p>
     </div>
     <div lang="en">
       <p>The <strong>length</strong> (<em>norm</em>) comes from Pythagoras extended to three dimensions. <strong>Normalising</strong> means dividing a vector by its own length: the direction stays, the length becomes 1. Such a <em>unit vector</em> is the natural way to express “just a direction”, e.g. a rotation axis.</p>
@@ -211,9 +211,9 @@ Vec3 v = {2, 3, 6};
 norm(v);        // 7
 normalized(v);  // (0.286, 0.429, 0.857)</code></pre>
 
-    <h3 id="vec-arith"><span lang="vi">Cộng, trừ, nhân với số</span><span lang="en">Addition, subtraction, scaling</span></h3>
+    <h3 id="vec-arith"><span lang="vi">Cộng, trừ và nhân với một số</span><span lang="en">Addition, subtraction, scaling</span></h3>
     <div lang="vi">
-      <p>Cộng và trừ thực hiện <em>theo từng thành phần</em>. Về hình học: <strong>a + b</strong> là đặt gốc của b vào ngọn của a rồi nối từ gốc a tới ngọn b; <strong>a − b</strong> là vector đi từ ngọn b tới ngọn a — rất tiện để tính vị trí tương đối hay sai số. Nhân với số <em>k</em> kéo dài vector <em>k</em> lần; nếu <em>k</em> âm, chiều bị đảo.</p>
+      <p>Phép cộng và trừ vector được thực hiện <em>theo từng thành phần</em>: x với x, y với y, z với z. Về mặt hình học, muốn có <strong>a + b</strong>, ta đặt gốc của b vào đầu mút của a, rồi nối từ gốc của a đến đầu mút của b. Còn <strong>a − b</strong> là vector đi từ đầu mút của b đến đầu mút của a — rất tiện khi tính vị trí tương đối hoặc sai số. Nhân vector với một số <em>k</em> sẽ làm vector dài ra (hoặc ngắn lại) <em>k</em> lần; nếu <em>k</em> âm thì vector còn bị đảo chiều.</p>
     </div>
     <div lang="en">
       <p>Addition and subtraction work <em>component by component</em>. Geometrically, <strong>a + b</strong> places b’s tail at a’s tip and joins a’s tail to b’s tip; <strong>a − b</strong> is the arrow from b’s tip to a’s tip — handy for relative positions and errors. Multiplying by a number <em>k</em> stretches the vector <em>k</em> times; a negative <em>k</em> also flips it.</p>
@@ -221,7 +221,7 @@ normalized(v);  // (0.286, 0.429, 0.857)</code></pre>
 
     <figure class="fig">
       <img src="img/vector-ops.svg" alt="" width="660" height="240" loading="lazy">
-      <figcaption><span lang="vi">Tổng a + b (quy tắc hình bình hành), hiệu a − b, và nhân với số.</span><span lang="en">The sum a + b (parallelogram rule), the difference a − b, and scaling.</span></figcaption>
+      <figcaption><span lang="vi">Từ trái sang phải: tổng a + b (quy tắc hình bình hành), hiệu a − b, và nhân vector với một số.</span><span lang="en">The sum a + b (parallelogram rule), the difference a − b, and scaling.</span></figcaption>
     </figure>
 
 <pre><code class="language-cpp">Vec3 operator+(Vec3 a, Vec3 b) { return {a.x + b.x, a.y + b.y, a.z + b.z}; }
@@ -234,7 +234,7 @@ a - b;   // (1, -4, 6)
 a * 0.5; // (1, -0.5, 2)</code></pre>
 
     <div lang="vi">
-      <p>Đôi khi ta cần nhân hoặc chia <strong>từng thành phần</strong> với một vector khác — chẳng hạn khi hiệu chuẩn cảm biến, mỗi trục có hệ số tỉ lệ riêng:</p>
+      <p>Đôi khi ta cần nhân hoặc chia hai vector <strong>theo từng thành phần</strong>. Ví dụ, khi hiệu chuẩn cảm biến, mỗi trục có một hệ số tỉ lệ riêng nên phải chia riêng cho từng trục:</p>
     </div>
     <div lang="en">
       <p>Sometimes you need <strong>component-wise</strong> multiplication or division by another vector — for example in sensor calibration, where every axis has its own scale factor:</p>
@@ -246,7 +246,7 @@ Vec3 accelCal = (accelRaw - accelBias) / accelScale;</code></pre>
 
     <h3 id="dot"><span lang="vi">Tích vô hướng</span><span lang="en">Dot product</span></h3>
     <div lang="vi">
-      <p><strong>Tích vô hướng</strong> (<em>dot product</em>) của hai vector cho ra một <em>con số</em>: tích hai độ dài nhân cos góc kẹp giữa chúng. Trực giác: nó đo xem hai vector “cùng phe” đến mức nào — dương khi cùng hướng, bằng 0 khi vuông góc, âm khi ngược hướng.</p>
+      <p><strong>Tích vô hướng</strong> (<em>dot product</em>) của hai vector cho kết quả là một <em>số</em>, bằng tích độ dài của hai vector nhân với cosin của góc giữa chúng. Hiểu đơn giản, tích vô hướng cho biết hai vector “cùng chiều” với nhau đến mức nào: kết quả dương khi chúng chỉ về cùng một phía, bằng 0 khi chúng vuông góc, và âm khi chúng chỉ về hai phía ngược nhau.</p>
     </div>
     <div lang="en">
       <p>The <strong>dot product</strong> of two vectors yields a single <em>number</em>: the product of their lengths times the cosine of the angle between them. Intuitively it measures how much the two vectors “agree” — positive when they point the same way, zero when perpendicular, negative when opposed.</p>
@@ -266,13 +266,13 @@ dot({2, -1, 4}, {1, 3, -2});       // -9
 angleBetween({1, 0, 0}, {1, 1, 0}); // 0.785 rad = 45°</code></pre>
 
     <div class="callout tip">
-      <span lang="vi"><b>Ứng dụng:</b> độ dài hình chiếu của <b>a</b> lên hướng đơn vị <b>û</b> chính là <code>dot(a, û)</code>. Ví dụ, chiếu vector trọng lực lên trục Z của thân drone cho biết drone nghiêng nhiều hay ít.</span>
+      <span lang="vi"><b>Ứng dụng:</b> độ dài hình chiếu của vector <b>a</b> lên một hướng đơn vị <b>û</b> chính bằng <code>dot(a, û)</code>. Chẳng hạn, chiếu vector trọng lực lên trục Z của thân drone sẽ cho biết drone đang nghiêng nhiều hay ít.</span>
       <span lang="en"><b>Use it for:</b> the projection length of <b>a</b> onto a unit direction <b>û</b> is just <code>dot(a, û)</code>. Projecting gravity onto the body Z axis, for instance, tells you how far the drone is tilted.</span>
     </div>
 
     <h3 id="cross"><span lang="vi">Tích có hướng</span><span lang="en">Cross product</span></h3>
     <div lang="vi">
-      <p><strong>Tích có hướng</strong> (<em>cross product</em>) <b>a × b</b> cho ra một <em>vector</em> vuông góc với cả a lẫn b. Chiều của nó theo quy tắc tay phải (từ a cuộn sang b), còn độ dài bằng diện tích hình bình hành tạo bởi a và b, tức <span class="math-inline" data-tex="\lVert\mathbf a\rVert\,\lVert\mathbf b\rVert\sin\varphi"></span>. Lưu ý <b>a × b = −(b × a)</b>: đổi thứ tự là đổi chiều.</p>
+      <p><strong>Tích có hướng</strong> (<em>cross product</em>) <b>a × b</b> cho kết quả là một <em>vector</em> vuông góc với cả a và b. Chiều của vector này xác định bằng quy tắc nắm tay phải: bốn ngón tay cong từ a sang b thì ngón cái chỉ chiều của a × b. Độ dài của nó bằng diện tích hình bình hành tạo bởi a và b, tức là <span class="math-inline" data-tex="\lVert\mathbf a\rVert\,\lVert\mathbf b\rVert\sin\varphi"></span>. Lưu ý rằng <b>a × b = −(b × a)</b>: đổi thứ tự hai vector thì kết quả đổi chiều.</p>
     </div>
     <div lang="en">
       <p>The <strong>cross product</strong> <b>a × b</b> yields a <em>vector</em> perpendicular to both a and b. Its direction follows the right-hand rule (curl from a toward b) and its length equals the area of the parallelogram spanned by a and b, i.e. <span class="math-inline" data-tex="\lVert\mathbf a\rVert\,\lVert\mathbf b\rVert\sin\varphi"></span>. Note that <b>a × b = −(b × a)</b>: swapping the order flips the result.</p>
@@ -280,7 +280,7 @@ angleBetween({1, 0, 0}, {1, 1, 0}); // 0.785 rad = 45°</code></pre>
 
     <figure class="fig">
       <img src="img/cross-product.svg" alt="" width="600" height="240" loading="lazy">
-      <figcaption><span lang="vi">a × b vuông góc với mặt phẳng chứa a và b; độ dài bằng diện tích S.</span><span lang="en">a × b is perpendicular to the plane of a and b; its length equals the area S.</span></figcaption>
+      <figcaption><span lang="vi">Vector a × b vuông góc với mặt phẳng chứa a và b; độ dài của nó bằng diện tích S của hình bình hành.</span><span lang="en">a × b is perpendicular to the plane of a and b; its length equals the area S.</span></figcaption>
     </figure>
 
 <pre><code class="language-cpp">Vec3 cross(Vec3 a, Vec3 b) {
@@ -293,14 +293,14 @@ cross({2, -1, 4}, {1, 3, -2}); // (-10, 8, 7)
 cross({1, 0, 0}, {0, 1, 0});   // (0, 0, 1): X × Y = Z</code></pre>
 
     <p>
-      <span lang="vi">Dòng cuối là một cách kiểm tra hệ tay phải: X × Y phải ra đúng Z. Trong điều khiển bay, tích có hướng xuất hiện khi tìm trục quay ngắn nhất đưa một hướng về hướng khác (ví dụ đưa trục Z thân về trùng chiều trọng lực).</span>
+      <span lang="vi">Dòng cuối cũng là một cách kiểm tra hệ tay phải: X × Y phải ra đúng Z. Trong điều khiển bay, tích có hướng được dùng mỗi khi cần tìm trục quay ngắn nhất để đưa một hướng trùng với một hướng khác — ví dụ, xoay trục Z của thân drone cho thẳng hàng với phương trọng lực đo được.</span>
       <span lang="en">The last line doubles as a handedness check: in a right-handed frame X × Y must equal Z. In flight control, the cross product shows up whenever you need the shortest rotation axis taking one direction onto another (say, aligning the body Z axis with measured gravity).</span>
     </p>
 
     <!-- ============ 3. ORIENTATION ============ -->
     <h2 id="orientation"><span lang="vi">Biểu diễn tư thế</span><span lang="en">Representing orientation</span></h2>
     <div lang="vi">
-      <p>Vị trí và vận tốc đều là vector, mọi người đồng ý. Còn <strong>tư thế</strong> (hướng quay của vật trong không gian) thì không có một cách biểu diễn “tốt nhất cho mọi việc”. Bốn cách phổ biến, mỗi cách có thế mạnh riêng:</p>
+      <p>Vị trí và vận tốc thì rõ ràng đều là vector. Nhưng với <strong>tư thế</strong> — tức vật đang quay về hướng nào trong không gian — thì không có cách biểu diễn nào tốt nhất cho mọi tình huống. Dưới đây là bốn cách phổ biến, mỗi cách có điểm mạnh riêng:</p>
     </div>
     <div lang="en">
       <p>Position and velocity are vectors, no debate. <strong>Orientation</strong> (how a body is rotated in space) has no single representation that is best for everything. Four common ones, each with its own strengths:</p>
@@ -312,8 +312,8 @@ cross({1, 0, 0}, {0, 1, 0});   // (0, 0, 1): X × Y = Z</code></pre>
           <tr>
             <th><span lang="vi">Cách biểu diễn</span><span lang="en">Representation</span></th>
             <th><span lang="vi">Số tham số</span><span lang="en">Numbers</span></th>
-            <th><span lang="vi">Người đọc dễ hiểu</span><span lang="en">Human-readable</span></th>
-            <th><span lang="vi">Tính toán</span><span lang="en">Good for math</span></th>
+            <th><span lang="vi">Dễ hiểu với người</span><span lang="en">Human-readable</span></th>
+            <th><span lang="vi">Thuận tiện tính toán</span><span lang="en">Good for math</span></th>
           </tr>
         </thead>
         <tbody>
@@ -327,26 +327,26 @@ cross({1, 0, 0}, {0, 1, 0});   // (0, 0, 1): X × Y = Z</code></pre>
 
     <h3 id="euler"><span lang="vi">Góc Euler</span><span lang="en">Euler angles</span></h3>
     <div lang="vi">
-      <p>Ba góc <strong>lăn (roll)</strong>, <strong>chúc (pitch)</strong> và <strong>hướng (yaw)</strong> là cách tự nhiên nhất với con người: “drone đang chúc mũi 10°, lăn phải 5°”. Mỗi góc là một lần quay quanh một trục, thực hiện nối tiếp nhau.</p>
-      <p>Vì cũng là ba con số, ta thường cất chúng trong một <code>Vec3</code> — dù về bản chất đây <em>không phải</em> vector (cộng hai bộ góc Euler không cho ra phép quay có nghĩa):</p>
+      <p>Ba góc <strong>roll</strong> (lăn — nghiêng sang trái hoặc phải), <strong>pitch</strong> (chúc — cúi hoặc ngóc mũi) và <strong>yaw</strong> (xoay — đổi hướng mũi) là cách mô tả tư thế gần gũi nhất với con người, kiểu như “drone đang chúc mũi 10° và nghiêng phải 5°”. Mỗi góc ứng với một lần quay quanh một trục, và ba lần quay được thực hiện lần lượt, nối tiếp nhau.</p>
+      <p>Vì cũng gồm ba con số, góc Euler thường được lưu trong một biến <code>Vec3</code>. Tuy vậy, về bản chất chúng <em>không phải</em> là vector: cộng hai bộ góc Euler với nhau không cho ra một phép quay có ý nghĩa.</p>
     </div>
     <div lang="en">
       <p>The three angles <strong>roll</strong>, <strong>pitch</strong> and <strong>yaw</strong> are the most human-friendly form: “nose down 10°, banked right 5°”. Each one is a rotation about a single axis, applied one after another.</p>
       <p>Since they are three numbers, they are often stored in a <code>Vec3</code> — even though they are <em>not</em> really a vector (adding two sets of Euler angles gives no meaningful rotation):</p>
     </div>
     <ul class="pill-list">
-      <li><code>euler.x</code><span lang="vi">lăn — quay quanh trục X (trước)</span><span lang="en">roll — about X (forward)</span></li>
-      <li><code>euler.y</code><span lang="vi">chúc — quay quanh trục Y (trái)</span><span lang="en">pitch — about Y (left)</span></li>
-      <li><code>euler.z</code><span lang="vi">hướng — quay quanh trục Z (lên)</span><span lang="en">yaw — about Z (up)</span></li>
+      <li><code>euler.x</code><span lang="vi">roll — quay quanh trục X (hướng trước)</span><span lang="en">roll — about X (forward)</span></li>
+      <li><code>euler.y</code><span lang="vi">pitch — quay quanh trục Y (hướng trái)</span><span lang="en">pitch — about Y (left)</span></li>
+      <li><code>euler.z</code><span lang="vi">yaw — quay quanh trục Z (hướng lên)</span><span lang="en">yaw — about Z (up)</span></li>
     </ul>
 
     <div lang="vi">
-      <p>Hai điểm yếu khiến góc Euler ít được dùng trong tính toán:</p>
+      <p>Tuy dễ hiểu, góc Euler có hai nhược điểm khiến chúng ít được dùng trong tính toán:</p>
       <ol class="fancy">
-        <li><strong>Phụ thuộc thứ tự quay.</strong> Quay X rồi Y khác quay Y rồi X; có tới 6 thứ tự hợp lệ (thậm chí 12 nếu tính cả kiểu lặp trục). Robot và hàng không thường dùng <em>yaw → pitch → roll</em> (gọi là ZYX).</li>
-        <li><strong>Khóa gimbal (gimbal lock).</strong> Khi pitch đạt ±90° (mũi chĩa thẳng lên hoặc xuống), trục roll và trục yaw trùng nhau, ta mất một bậc tự do: nhiều bộ (roll, yaw) khác nhau cùng mô tả một tư thế, và các góc nhảy loạn khi đi qua điểm này.</li>
+        <li><strong>Kết quả phụ thuộc vào thứ tự quay.</strong> Quay quanh X rồi quanh Y sẽ cho kết quả khác với quay quanh Y rồi quanh X. Có tới 6 thứ tự quay hợp lệ (12 nếu tính cả các kiểu lặp lại trục). Trong robot và hàng không, thứ tự thường dùng là <em>yaw → pitch → roll</em>, gọi tắt là ZYX.</li>
+        <li><strong>Khóa gimbal (gimbal lock).</strong> Khi góc pitch đạt ±90° (mũi drone chĩa thẳng lên trời hoặc xuống đất), trục quay roll và trục quay yaw trùng nhau, khiến ta mất đi một bậc tự do. Lúc này nhiều cặp giá trị (roll, yaw) khác nhau lại cùng mô tả một tư thế, và các góc thay đổi đột ngột, thất thường khi drone đi qua vị trí này.</li>
       </ol>
-      <p>Hệ quả: không có công thức gọn để “cộng” hai phép quay hay tính sai lệch giữa hai tư thế trực tiếp bằng góc Euler. Chúng hợp để <em>hiển thị</em> và <em>nhập lệnh</em> hơn là để tính toán.</p>
+      <p>Vì vậy, không có công thức gọn gàng nào để ghép hai phép quay hay tính độ lệch giữa hai tư thế nếu chỉ dùng góc Euler. Góc Euler phù hợp để <em>hiển thị</em> cho người xem hoặc để <em>nhập lệnh</em>, hơn là để tính toán bên trong.</p>
     </div>
     <div lang="en">
       <p>Two weaknesses keep Euler angles out of most calculations:</p>
@@ -358,19 +358,19 @@ cross({1, 0, 0}, {0, 1, 0});   // (0, 0, 1): X × Y = Z</code></pre>
     </div>
 
     <div class="callout key">
-      <span lang="vi">Góc Euler: đọc thì dễ, tính thì khó. Hãy chuyển sang quaternion ngay khi cần làm phép toán.</span>
+      <span lang="vi">Góc Euler: dễ đọc nhưng khó tính. Khi cần làm phép toán, hãy chuyển sang quaternion.</span>
       <span lang="en">Euler angles: easy to read, painful to compute with. Convert to a quaternion as soon as there’s math to do.</span>
     </div>
 
     <h3 id="axis-angle"><span lang="vi">Trục – góc</span><span lang="en">Axis–angle</span></h3>
     <div lang="vi">
-      <p><em>Định lý quay Euler</em> phát biểu rằng: mọi tư thế đều đạt được từ tư thế ban đầu bằng <strong>một</strong> phép quay duy nhất quanh <strong>một</strong> trục cố định nào đó. Vì vậy tư thế có thể mô tả bằng một cặp:</p>
+      <p>Theo <em>định lý quay Euler</em>, từ tư thế ban đầu, ta luôn có thể đưa vật tới bất kỳ tư thế nào chỉ bằng <strong>một</strong> phép quay duy nhất quanh <strong>một</strong> trục cố định nào đó. Do đó, mọi tư thế đều có thể mô tả bằng hai thông tin:</p>
     </div>
     <div lang="en">
       <p><em>Euler’s rotation theorem</em> says that any orientation can be reached from the initial one by a <strong>single</strong> rotation about <strong>some</strong> fixed axis. So an orientation can be described by a pair:</p>
     </div>
     <ul class="pill-list">
-      <li><b>û</b><span lang="vi">trục quay — một vector đơn vị</span><span lang="en">the axis — a unit vector</span></li>
+      <li><b>û</b><span lang="vi">trục quay, biểu diễn bằng một vector đơn vị</span><span lang="en">the axis — a unit vector</span></li>
       <li><b>θ</b><span lang="vi">góc quay quanh trục đó, tính bằng radian</span><span lang="en">the angle around it, in radians</span></li>
     </ul>
 
@@ -379,14 +379,14 @@ Vec3  axis  = normalized({1, 2, 2});  // (0.333, 0.667, 0.667)
 float angle = 60 * M_PI / 180;        // 1.047 rad</code></pre>
 
     <p>
-      <span lang="vi">Cách này đã tránh được gimbal lock và dễ hình dung, nhưng việc ghép hai phép quay vẫn còn phức tạp.</span>
+      <span lang="vi">Cách biểu diễn này dễ hình dung và không bị khóa gimbal, nhưng việc ghép hai phép quay liên tiếp vẫn còn phức tạp.</span>
       <span lang="en">This avoids gimbal lock and is easy to picture, but composing two rotations is still awkward.</span>
     </p>
 
     <h3 id="rotvec"><span lang="vi">Vector quay</span><span lang="en">Rotation vector</span></h3>
     <div lang="vi">
-      <p>Gộp trục và góc làm một bằng cách nhân: <span class="math-inline" data-tex="\mathbf r = \theta\,\hat{\mathbf u}"></span>. Hướng của <b>r</b> là trục quay, còn độ dài là góc quay. Đây là <strong>vector quay</strong> — chỉ ba con số mà vẫn mô tả đầy đủ một phép quay.</p>
-      <p>Tính chất khiến nó cực kỳ hữu ích cho điều khiển: nếu vật giữ vận tốc góc (đo trong hệ thân) đúng bằng <b>r</b> rad/s, thì sau đúng 1 giây nó quay xong phép quay mà <b>r</b> mô tả. Nói cách khác, vector quay chính là <em>“cần quay bao nhiêu, theo trục nào”</em> — chia cho thời gian mong muốn là ra luôn lệnh vận tốc góc.</p>
+      <p>Nếu nhân vector trục quay với góc quay, ta gộp được cả hai thông tin vào một vector duy nhất: <span class="math-inline" data-tex="\mathbf r = \theta\,\hat{\mathbf u}"></span>. Hướng của <b>r</b> cho biết trục quay, còn độ dài của <b>r</b> cho biết góc quay. Vector này gọi là <strong>vector quay</strong> (<em>rotation vector</em>) — chỉ với ba con số, nó mô tả đầy đủ một phép quay.</p>
+      <p>Vector quay có một tính chất rất hữu ích cho việc điều khiển: nếu vật quay với vận tốc góc (đo trong hệ gắn với thân) không đổi và đúng bằng <b>r</b> rad/s, thì sau đúng 1 giây nó sẽ hoàn thành phép quay mà <b>r</b> mô tả. Nói cách khác, vector quay trả lời trực tiếp câu hỏi <em>“cần quay bao nhiêu, quanh trục nào”</em>; chỉ cần chia nó cho khoảng thời gian mong muốn là có ngay lệnh vận tốc góc.</p>
     </div>
     <div lang="en">
       <p>Merge axis and angle into one by multiplying: <span class="math-inline" data-tex="\mathbf r = \theta\,\hat{\mathbf u}"></span>. The direction of <b>r</b> is the axis, its length is the angle. This is the <strong>rotation vector</strong> — just three numbers that fully describe a rotation.</p>
@@ -394,7 +394,7 @@ float angle = 60 * M_PI / 180;        // 1.047 rad</code></pre>
     </div>
 
     <div class="callout key">
-      <span lang="vi">Vector quay sai lệch giữa tư thế hiện tại và tư thế mục tiêu, nhân với một hệ số, là một lệnh vận tốc góc hợp lý. Đây là trái tim của nhiều bộ điều khiển tư thế.</span>
+      <span lang="vi">Lấy vector quay từ tư thế hiện tại đến tư thế mục tiêu rồi nhân với một hệ số, ta được một lệnh vận tốc góc hợp lý. Đây chính là ý tưởng cốt lõi của nhiều bộ điều khiển tư thế.</span>
       <span lang="en">The rotation vector from the current attitude to the target attitude, scaled by a gain, makes a sensible angular-rate command. This idea sits at the heart of many attitude controllers.</span>
     </div>
 
@@ -403,19 +403,19 @@ Vec3 r = normalized({1, 2, 2}) * (60 * M_PI / 180); // (0.349, 0.698, 0.698)</co
 
     <h3 id="quaternion"><span lang="vi">Quaternion</span><span lang="en">Quaternions</span></h3>
     <div lang="vi">
-      <p><strong>Quaternion</strong> là bộ bốn số <code>(w, x, y, z)</code>. Một phép quay góc θ quanh trục đơn vị û được mã hóa thành quaternion đơn vị như sau:</p>
+      <p><strong>Quaternion</strong> là một bộ gồm bốn số <code>(w, x, y, z)</code>. Một phép quay góc θ quanh trục đơn vị û được biểu diễn bằng một quaternion có độ dài bằng 1 theo công thức:</p>
     </div>
     <div lang="en">
       <p>A <strong>quaternion</strong> is a set of four numbers <code>(w, x, y, z)</code>. A rotation by θ about a unit axis û is encoded as a unit quaternion like this:</p>
     </div>
     <div class="math-block" data-tex="q = \begin{pmatrix} w \\ x \\ y \\ z \end{pmatrix} = \begin{pmatrix} \cos\frac{\theta}{2} \\[2pt] u_x \sin\frac{\theta}{2} \\[2pt] u_y \sin\frac{\theta}{2} \\[2pt] u_z \sin\frac{\theta}{2} \end{pmatrix}"></div>
     <div lang="vi">
-      <p>Nhìn công thức có vẻ lạ, nhưng thực tế cách mã hóa “nửa góc” này giúp mọi phép toán quay trở nên gọn, nhanh và ổn định số học: không có hàm lượng giác trong vòng lặp chính, không có điểm kỳ dị, và giữ cho chuẩn bằng 1 chỉ cần một phép chuẩn hóa rẻ tiền. Một vài tính chất cần nhớ:</p>
+      <p>Công thức dùng “nửa góc” này thoạt nhìn có vẻ lạ, nhưng trên thực tế nó giúp mọi phép toán với phép quay trở nên gọn, nhanh và ít sai số: không cần hàm lượng giác trong vòng lặp chính, không có điểm kỳ dị như góc Euler, và để giữ độ dài luôn bằng 1 chỉ cần một phép chuẩn hóa đơn giản. Một vài tính chất nên nhớ:</p>
       <ul class="checks">
-        <li><code>(1, 0, 0, 0)</code> là quaternion “không quay” — tư thế ban đầu.</li>
-        <li><b>q</b> và <b>−q</b> biểu diễn <em>cùng một</em> phép quay (θ và θ + 360°).</li>
-        <li>Liên hợp <span class="math-inline" data-tex="q^{*} = (w, -x, -y, -z)"></span> là phép quay ngược lại.</li>
-        <li>Về mặt toán học, quaternion là sự mở rộng của số phức lên bốn chiều; ở đây ta chỉ cần phần ứng dụng cho phép quay.</li>
+        <li><code>(1, 0, 0, 0)</code> là quaternion “không quay”, ứng với tư thế ban đầu.</li>
+        <li><b>q</b> và <b>−q</b> biểu diễn <em>cùng một</em> phép quay (tương ứng với góc θ và θ + 360°).</li>
+        <li>Quaternion liên hợp <span class="math-inline" data-tex="q^{*} = (w, -x, -y, -z)"></span> biểu diễn phép quay ngược lại.</li>
+        <li>Về mặt toán học, quaternion là sự mở rộng của số phức lên bốn chiều. Trong bài này, ta chỉ cần đến phần ứng dụng của nó cho phép quay.</li>
       </ul>
     </div>
     <div lang="en">
@@ -429,14 +429,14 @@ Vec3 r = normalized({1, 2, 2}) * (60 * M_PI / 180); // (0.349, 0.698, 0.698)</co
     </div>
 
     <div class="callout key">
-      <span lang="vi">Với bộ điều khiển bay, hãy coi quaternion là “phiên bản tối ưu cho máy tính” của vector quay.</span>
+      <span lang="vi">Trong bộ điều khiển bay, có thể hiểu quaternion là “phiên bản dành cho máy tính” của vector quay: cùng ý nghĩa, nhưng tính toán thuận tiện hơn nhiều.</span>
       <span lang="en">For a flight controller, think of a quaternion as the “computer-optimised edition” of the rotation vector.</span>
     </div>
 
     <!-- ============ DEMO ============ -->
-    <h3 id="demo"><span lang="vi">Thử nghiệm: một phép quay, bốn cách nhìn</span><span lang="en">Try it: one rotation, four views</span></h3>
+    <h3 id="demo"><span lang="vi">Thử nghiệm: một phép quay, bốn cách biểu diễn</span><span lang="en">Try it: one rotation, four views</span></h3>
     <p>
-      <span lang="vi">Kéo thanh trượt để thay đổi góc θ quanh trục cố định <b>û ∥ (1, 2, 2)</b> (đường nét đứt màu cam). Quan sát cách mô hình drone, vector quay (mũi tên tím), quaternion và góc Euler cùng thay đổi. Kéo chuột trên khung để xoay góc nhìn.</span>
+      <span lang="vi">Kéo thanh trượt để thay đổi góc quay θ quanh một trục cố định <b>û ∥ (1, 2, 2)</b> (đường nét đứt màu cam). Hãy quan sát mô hình drone, vector quay (mũi tên màu tím), quaternion và góc Euler thay đổi cùng lúc như thế nào. Bạn cũng có thể kéo chuột (hoặc vuốt) trong khung hình để xoay góc nhìn.</span>
       <span lang="en">Drag the slider to change the angle θ about the fixed axis <b>û ∥ (1, 2, 2)</b> (orange dashed line). Watch how the drone model, the rotation vector (purple arrow), the quaternion and the Euler angles change together. Drag inside the view to orbit the camera.</span>
     </p>
 
@@ -459,22 +459,22 @@ Vec3 r = normalized({1, 2, 2}) * (60 * M_PI / 180); // (0.349, 0.698, 0.698)</co
           <div><dt><span lang="vi">Trục quay û</span><span lang="en">Axis û</span></dt><dd>(1, 2, 2) / 3 = (0.333, 0.667, 0.667)</dd></div>
           <div><dt><span lang="vi">Vector quay r = θû</span><span lang="en">Rotation vector r = θû</span></dt><dd id="roRot">(0.000, 0.000, 0.000) rad</dd></div>
           <div><dt>Quaternion q</dt><dd id="roQuat">(1.000, 0.000, 0.000, 0.000)</dd></div>
-          <div class="wide"><dt><span lang="vi">Góc Euler (ZYX)</span><span lang="en">Euler angles (ZYX)</span></dt>
-            <dd><span class="eul"><span lang="vi">lăn</span><span lang="en">roll</span> <b id="roRoll">0°</b></span>
-                <span class="eul"><span lang="vi">chúc</span><span lang="en">pitch</span> <b id="roPitch">0°</b></span>
-                <span class="eul"><span lang="vi">hướng</span><span lang="en">yaw</span> <b id="roYaw">0°</b></span></dd></div>
+          <div class="wide"><dt><span lang="vi">Góc Euler (thứ tự ZYX)</span><span lang="en">Euler angles (ZYX)</span></dt>
+            <dd><span class="eul"><span lang="vi">roll</span><span lang="en">roll</span> <b id="roRoll">0°</b></span>
+                <span class="eul"><span lang="vi">pitch</span><span lang="en">pitch</span> <b id="roPitch">0°</b></span>
+                <span class="eul"><span lang="vi">yaw</span><span lang="en">yaw</span> <b id="roYaw">0°</b></span></dd></div>
         </dl>
       </div>
     </div>
 
     <div class="callout note">
-      <span lang="vi">Để ý: khi θ đi từ 0° tới 180°, thành phần <b>w</b> giảm từ 1 về 0, còn (x, y, z) luôn song song với trục quay. Trong khi đó cả ba góc Euler cùng thay đổi theo kiểu khó đoán — minh chứng cho việc góc Euler không “thẳng hàng” với phép quay quanh một trục bất kỳ.</span>
+      <span lang="vi">Hãy để ý: khi θ tăng từ 0° lên 180°, thành phần <b>w</b> giảm dần từ 1 về 0, còn phần (x, y, z) luôn song song với trục quay. Trong khi đó, cả ba góc Euler đều thay đổi theo cách khó đoán — cho thấy góc Euler không phản ánh trực tiếp một phép quay quanh trục bất kỳ.</span>
       <span lang="en">Notice: as θ goes from 0° to 180°, <b>w</b> falls from 1 to 0 while (x, y, z) stays parallel to the axis. Meanwhile all three Euler angles change in hard-to-predict ways — a reminder that Euler angles don’t line up with a rotation about an arbitrary axis.</span>
     </div>
 
-    <h3 id="quat-ops"><span lang="vi">Làm việc với quaternion</span><span lang="en">Working with quaternions</span></h3>
+    <h3 id="quat-ops"><span lang="vi">Các phép toán với quaternion</span><span lang="en">Working with quaternions</span></h3>
     <div lang="vi">
-      <p>Tạo quaternion từ trục – góc, và từ vector quay (chỉ là tách độ dài ra làm góc):</p>
+      <p>Tạo quaternion từ cặp trục – góc, hoặc từ vector quay (chỉ cần tách độ dài của vector ra làm góc quay):</p>
     </div>
     <div lang="en">
       <p>Building a quaternion from axis–angle, and from a rotation vector (just split off the length as the angle):</p>
@@ -505,7 +505,7 @@ Vec3 toRotationVector(Quat q) {
 }</code></pre>
 
     <div lang="vi">
-      <p>Chuyển ngược sang góc Euler (thứ tự ZYX) để hiển thị cho người dùng:</p>
+      <p>Chuyển ngược từ quaternion sang góc Euler (thứ tự ZYX) để hiển thị cho người dùng:</p>
     </div>
     <div lang="en">
       <p>Converting back to Euler angles (ZYX order) for display:</p>
@@ -514,7 +514,7 @@ Vec3 toRotationVector(Quat q) {
 
     <h4 class="sub" id="compose"><span lang="vi">Ghép hai phép quay: tích Hamilton</span><span lang="en">Composing rotations: the Hamilton product</span></h4>
     <div lang="vi">
-      <p>Áp dụng phép quay này lên phép quay khác chính là <strong>nhân quaternion</strong>. Phép nhân này <strong>không giao hoán</strong>: <span class="math-inline" data-tex="q_1 \otimes q_2 \ne q_2 \otimes q_1"></span> nói chung — giống như ngoài đời, “quay quanh X rồi quanh Z” cho kết quả khác “quanh Z rồi quanh X”.</p>
+      <p>Muốn áp dụng thêm một phép quay lên một phép quay khác, ta <strong>nhân hai quaternion</strong> với nhau. Phép nhân này <strong>không có tính giao hoán</strong>: nói chung <span class="math-inline" data-tex="q_1 \otimes q_2 \ne q_2 \otimes q_1"></span>. Điều này cũng giống ngoài đời thực: “quay quanh X rồi quanh Z” sẽ cho kết quả khác với “quay quanh Z rồi quanh X”.</p>
     </div>
     <div lang="en">
       <p>Applying one rotation on top of another is <strong>quaternion multiplication</strong>. It is <strong>not commutative</strong>: in general <span class="math-inline" data-tex="q_1 \otimes q_2 \ne q_2 \otimes q_1"></span> — just as in real life, “turn about X, then about Z” ends somewhere different from “about Z, then about X”.</p>
@@ -532,7 +532,7 @@ Quat conj(Quat q) { return {q.w, -q.x, -q.y, -q.z}; }</code></pre>
 
     <h4 class="sub" id="rotate-vec"><span lang="vi">Quay một vector</span><span lang="en">Rotating a vector</span></h4>
     <div lang="vi">
-      <p>Để quay vector <b>v</b> bằng quaternion <b>q</b>, coi v là quaternion có <code>w = 0</code> rồi “kẹp” nó giữa q và q*:</p>
+      <p>Để quay một vector <b>v</b> bằng quaternion <b>q</b>, ta coi v là một quaternion có <code>w = 0</code>, rồi “kẹp” nó giữa q và q* như sau:</p>
     </div>
     <div lang="en">
       <p>To rotate a vector <b>v</b> by a quaternion <b>q</b>, treat v as a quaternion with <code>w = 0</code> and “sandwich” it between q and q*:</p>
@@ -547,17 +547,17 @@ Quat conj(Quat q) { return {q.w, -q.x, -q.y, -q.z}; }</code></pre>
 Quat yaw90 = fromAxisAngle({0, 0, 1}, M_PI / 2);
 rotate({1, 0, 0}, yaw90); // (0, 1, 0): X turns into Y, counter-clockwise</code></pre>
 
-    <h4 class="sub" id="difference"><span lang="vi">Sai lệch giữa hai tư thế</span><span lang="en">Difference between two attitudes</span></h4>
+    <h4 class="sub" id="difference"><span lang="vi">Độ lệch giữa hai tư thế</span><span lang="en">Difference between two attitudes</span></h4>
     <div lang="vi">
-      <p>Phép quay đưa tư thế <b>q₁</b> tới <b>q₂</b>, biểu diễn trong hệ thân của q₁, là <span class="math-inline" data-tex="q_\text{err} = q_1^{*} \otimes q_2"></span>. Đổi nó sang vector quay là ta có ngay “cần quay bao nhiêu, theo trục nào” — đúng thứ mà bộ điều khiển tư thế cần.</p>
+      <p>Phép quay đưa tư thế <b>q₁</b> đến tư thế <b>q₂</b> (biểu diễn trong hệ gắn với thân ở tư thế q₁) được tính bằng <span class="math-inline" data-tex="q_\text{err} = q_1^{*} \otimes q_2"></span>. Chuyển kết quả này sang vector quay, ta có ngay câu trả lời “cần quay bao nhiêu, quanh trục nào” — đúng thứ mà bộ điều khiển tư thế cần.</p>
     </div>
     <div lang="en">
       <p>The rotation that takes attitude <b>q₁</b> to <b>q₂</b>, expressed in q₁’s body frame, is <span class="math-inline" data-tex="q_\text{err} = q_1^{*} \otimes q_2"></span>. Turn it into a rotation vector and you have “how much to turn, about which axis” — exactly what an attitude controller needs.</p>
     </div>
 
-    <h3 id="in-practice"><span lang="vi">Ghép lại trong vòng lặp bay</span><span lang="en">Putting it together in the flight loop</span></h3>
+    <h3 id="in-practice"><span lang="vi">Kết hợp tất cả trong vòng lặp bay</span><span lang="en">Putting it together in the flight loop</span></h3>
     <div lang="vi">
-      <p>Dưới đây là phác thảo hai việc cốt lõi mà mọi bộ điều khiển dùng quaternion đều làm: <strong>(1)</strong> tích phân con quay hồi chuyển để cập nhật tư thế, và <strong>(2)</strong> biến sai lệch tư thế thành lệnh vận tốc góc. Đây chỉ là minh họa ý tưởng, không phải mã bay hoàn chỉnh (thiếu bù trôi bằng gia tốc kế, giới hạn, lọc…).</p>
+      <p>Đoạn mã dưới đây phác thảo hai việc cốt lõi mà bộ điều khiển dùng quaternion nào cũng phải làm: <strong>(1)</strong> tích phân số đo của con quay hồi chuyển để cập nhật tư thế, và <strong>(2)</strong> chuyển độ lệch tư thế thành lệnh vận tốc góc. Đây chỉ là minh họa ý tưởng, chưa phải mã bay hoàn chỉnh — mã thật còn cần bù trôi bằng gia tốc kế, giới hạn giá trị, bộ lọc, v.v.</p>
     </div>
     <div lang="en">
       <p>Here is a sketch of the two core jobs every quaternion-based controller performs: <strong>(1)</strong> integrating the gyro to update the attitude, and <strong>(2)</strong> turning the attitude error into an angular-rate command. It illustrates the idea only — real flight code also needs accelerometer drift correction, limits, filtering and more.</p>
@@ -576,7 +576,7 @@ void loop(float dt) {
 }</code></pre>
 
     <div class="callout tip">
-      <span lang="vi">Sai số làm tròn khiến chuẩn của quaternion trôi dần khỏi 1 sau hàng nghìn phép nhân. Chuẩn hóa lại sau mỗi lần cập nhật (như trên) là đủ để giữ nó luôn hợp lệ.</span>
+      <span lang="vi">Sau hàng nghìn phép nhân, sai số làm tròn sẽ khiến độ dài của quaternion lệch dần khỏi 1. Chỉ cần chuẩn hóa lại sau mỗi lần cập nhật (như trong đoạn mã trên) là quaternion luôn hợp lệ.</span>
       <span lang="en">Rounding errors make the quaternion’s norm drift away from 1 after thousands of multiplications. Re-normalising after every update (as above) keeps it valid.</span>
     </div>
 
@@ -584,15 +584,15 @@ void loop(float dt) {
     <h2 id="cheatsheet"><span lang="vi">Tóm tắt nhanh</span><span lang="en">Cheat sheet</span></h2>
     <div class="table-wrap">
       <table class="cheat">
-        <thead><tr><th><span lang="vi">Muốn…</span><span lang="en">I want to…</span></th><th><span lang="vi">Dùng</span><span lang="en">Use</span></th></tr></thead>
+        <thead><tr><th><span lang="vi">Khi cần…</span><span lang="en">I want to…</span></th><th><span lang="vi">Dùng</span><span lang="en">Use</span></th></tr></thead>
         <tbody>
-          <tr><td><span lang="vi">Biết hai hướng giống nhau đến đâu</span><span lang="en">See how aligned two directions are</span></td><td><code>dot(a, b)</code></td></tr>
+          <tr><td><span lang="vi">Biết hai hướng gần nhau đến mức nào</span><span lang="en">See how aligned two directions are</span></td><td><code>dot(a, b)</code></td></tr>
           <tr><td><span lang="vi">Tìm hướng vuông góc với hai vector</span><span lang="en">Find a direction perpendicular to two vectors</span></td><td><code>cross(a, b)</code></td></tr>
           <tr><td><span lang="vi">Lưu tư thế hiện tại</span><span lang="en">Store the current attitude</span></td><td><code>Quat</code></td></tr>
-          <tr><td><span lang="vi">Áp phép quay q₂ sau q₁ (trong hệ thân)</span><span lang="en">Apply q₂ after q₁ (in the body frame)</span></td><td><code>q1 * q2</code></td></tr>
+          <tr><td><span lang="vi">Áp dụng phép quay q₂ sau q₁ (trong hệ gắn với thân)</span><span lang="en">Apply q₂ after q₁ (in the body frame)</span></td><td><code>q1 * q2</code></td></tr>
           <tr><td><span lang="vi">Quay một vector</span><span lang="en">Rotate a vector</span></td><td><code>q * (0, v) * conj(q)</code></td></tr>
-          <tr><td><span lang="vi">Sai lệch tư thế → lệnh vận tốc góc</span><span lang="en">Attitude error → rate command</span></td><td><code>toRotationVector(conj(q) * target)</code></td></tr>
-          <tr><td><span lang="vi">Hiển thị cho người</span><span lang="en">Show it to a human</span></td><td><span lang="vi">góc Euler</span><span lang="en">Euler angles</span></td></tr>
+          <tr><td><span lang="vi">Đổi độ lệch tư thế thành lệnh vận tốc góc</span><span lang="en">Attitude error → rate command</span></td><td><code>toRotationVector(conj(q) * target)</code></td></tr>
+          <tr><td><span lang="vi">Hiển thị cho người xem</span><span lang="en">Show it to a human</span></td><td><span lang="vi">góc Euler</span><span lang="en">Euler angles</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -600,15 +600,15 @@ void loop(float dt) {
     <!-- ============ REFERENCES ============ -->
     <h2 id="references"><span lang="vi">Tài liệu tham khảo</span><span lang="en">Further reading</span></h2>
     <ul class="refs">
-      <li><a href="https://quadcopter.dev/geometry.html" target="_blank" rel="noopener">quadcopter.dev — «Вектор, кватернион»</a><span lang="vi">Chương gốc (tiếng Nga) trong sách về dự án quadcopter mã nguồn mở Flix của Oleg Kalachev — nguồn cảm hứng cho trang này.</span><span lang="en">The original chapter (in Russian) from Oleg Kalachev’s book on the open-source Flix quadcopter — the inspiration for this page.</span></li>
-      <li><a href="https://github.com/okalachev/flix" target="_blank" rel="noopener">github.com/okalachev/flix</a><span lang="vi">Firmware Flix, có thư viện vector và quaternion thật dùng trong drone.</span><span lang="en">The Flix firmware, including the real vector and quaternion libraries flown on the drone.</span></li>
-      <li><a href="https://www.ros.org/reps/rep-0103.html" target="_blank" rel="noopener">REP-103</a><span lang="vi">Quy ước đơn vị và hệ tọa độ của ROS.</span><span lang="en">ROS conventions for units and coordinate frames.</span></li>
-      <li><a href="https://eater.net/quaternions" target="_blank" rel="noopener">eater.net/quaternions</a><span lang="vi">Video tương tác giải thích quaternion (Ben Eater &amp; Grant Sanderson).</span><span lang="en">Interactive explorable videos on quaternions (Ben Eater &amp; Grant Sanderson).</span></li>
+      <li><a href="https://quadcopter.dev/geometry.html" target="_blank" rel="noopener">quadcopter.dev — «Вектор, кватернион»</a><span lang="vi">Chương sách gốc (tiếng Nga) về dự án quadcopter mã nguồn mở Flix của Oleg Kalachev — nguồn cảm hứng cho trang này.</span><span lang="en">The original chapter (in Russian) from Oleg Kalachev’s book on the open-source Flix quadcopter — the inspiration for this page.</span></li>
+      <li><a href="https://github.com/okalachev/flix" target="_blank" rel="noopener">github.com/okalachev/flix</a><span lang="vi">Mã nguồn firmware Flix, gồm các thư viện vector và quaternion đang chạy trên drone thật.</span><span lang="en">The Flix firmware, including the real vector and quaternion libraries flown on the drone.</span></li>
+      <li><a href="https://www.ros.org/reps/rep-0103.html" target="_blank" rel="noopener">REP-103</a><span lang="vi">Quy ước về đơn vị đo và hệ tọa độ trong ROS.</span><span lang="en">ROS conventions for units and coordinate frames.</span></li>
+      <li><a href="https://eater.net/quaternions" target="_blank" rel="noopener">eater.net/quaternions</a><span lang="vi">Loạt video tương tác giải thích quaternion một cách trực quan (Ben Eater &amp; Grant Sanderson).</span><span lang="en">Interactive explorable videos on quaternions (Ben Eater &amp; Grant Sanderson).</span></li>
     </ul>
 
     <footer class="page-footer">
       <p>
-        <span lang="vi">Nội dung, mã ví dụ và hình minh họa trên trang này được viết mới độc lập, lấy cảm hứng từ chương sách của Oleg Kalachev tại quadcopter.dev; đây không phải bản dịch chính thức.</span>
+        <span lang="vi">Nội dung, mã ví dụ và hình minh họa trên trang này được viết mới một cách độc lập, lấy cảm hứng từ chương sách của Oleg Kalachev tại quadcopter.dev. Đây không phải là bản dịch chính thức.</span>
         <span lang="en">The text, code samples and illustrations on this page were written independently, inspired by Oleg Kalachev’s chapter at quadcopter.dev; this is not an official translation.</span>
       </p>
       <a href="#top" class="to-top"><span lang="vi">↑ Lên đầu trang</span><span lang="en">↑ Back to top</span></a>
